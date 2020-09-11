@@ -1,0 +1,30 @@
+{
+    "name": "bobdenotter/sitemap",
+    "description": "Provide a sitemap (.xml) for your Bolt 4 site",
+    "type": "bolt-extension",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Bob den Otter",
+            "email": "bobdenotter@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.3",
+        "twig/twig": "^2.12 || ^3"
+    },
+    "require-dev": {
+        "bolt/core": "^4.0.0",
+        "symplify/easy-coding-standard": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Bobdenotter\\Sitemap\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "entrypoint": "Bobdenotter\\Sitemap\\Extension"
+    }
+}
