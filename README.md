@@ -1,8 +1,8 @@
-# Acme ReferenceExtension
+# Bolt Sitemap Extension
 
-Author: YourNameHere
+Author: Bob den Otter
 
-This Bolt extension can be used as a starting point to base your own extensions on.
+This Bolt extension can be used to add a `sitemap.xml` to your site..
 
 Installation:
 
@@ -10,17 +10,25 @@ Installation:
 composer require acmecorp/reference-extension
 ```
 
+.. and, you're good to go! Visit `/sitemap.xml` on your site, and you should 
+see the result!
+
+
+-------
+
+The part below is only for _developing_ the extension. Not required for general
+usage of the extension in your Bolt Project.
 
 ## Running PHPStan and Easy Codings Standard
 
 First, make sure dependencies are installed:
 
-```
+```bash
 COMPOSER_MEMORY_LIMIT=-1 composer update
 ```
 
 And then run ECS:
 
-```
-vendor/bin/ecs check src
+```bash
+vendor/bin/ecs check src --fix
 ```
