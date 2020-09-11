@@ -13,15 +13,11 @@ class RegisterControllers
         return [
             'xml_sitemap' => new Route(
                 '/sitemap.xml',
-                ['_controller' => 'Bobdenotter\Sitemap\Controller::sitemap'],
+                ['_controller' => 'Bobdenotter\Sitemap\Controller::sitemap']
             ),
             'xml_sitemap_xsl' => new Route(
-                '/sitemap.xml',
-                ['_controller' => 'Bobdenotter\Sitemap\Controller::feedSingle'],
-                [
-                    'type' => '(rss|atom|json)',
-                    'extension' => '(rss|atom|json|xml)',
-                ]
+                '/sitemap.xsl',
+                ['_controller' => 'Bobdenotter\Sitemap\Controller::xsl']
             ),
         ];
     }

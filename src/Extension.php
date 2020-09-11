@@ -36,9 +36,6 @@ class Extension extends BaseExtension
      */
     public function initialize(): void
     {
-        $this->registerWidget(new ReferenceWidget());
-        $this->registerTwigExtension(new Twig());
-
-        $this->addTwigNamespace('rss-extension');
+        $this->addTwigNamespace('sitemap');
     }
 }
