@@ -7,7 +7,7 @@ This Bolt extension can be used to add a `sitemap.xml` to your site..
 Installation:
 
 ```bash
-composer require acmecorp/reference-extension
+composer require bobdenotter/sitemap
 ```
 
 .. and, you're good to go! Visit `/sitemap.xml` on your site, and you should 
