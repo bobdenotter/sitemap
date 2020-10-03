@@ -48,7 +48,7 @@ class Controller extends ExtensionController
     private function createPager(Query $query, string $contentType, int $pageSize)
     {
         $params = [
-            'status' => '!unknown',
+            'status' => 'published',
             'returnmultiple' => true,
             'order' => 'id',
         ];
