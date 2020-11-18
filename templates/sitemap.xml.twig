@@ -23,4 +23,17 @@
             </url>
         {% endif %}
     {% endfor %}
+
+    {% if taxonomies is defined %}
+        {% for taxonomy in taxonomies %}
+            {% if taxonomy|link is not empty %}
+                <url>
+                    <loc>{{ absolute_url(taxonomy|link) }}</loc>
+                    <changefreq>weekly</changefreq>
+                    <priority>0.7</priority>
+                    <lastmod>{{ "now"|date('Y-m-d\\TH:i:sP') }}</lastmod>
+                </url>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 </urlset>

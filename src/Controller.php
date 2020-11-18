@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Bobdenotter\Sitemap;
 
 use Bolt\Configuration\Config;
+use Bolt\Entity\Taxonomy;
 use Bolt\Extension\ExtensionController;
+use Bolt\Repository\TaxonomyRepository;
 use Bolt\Storage\Query;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -27,9 +29,29 @@ class Controller extends ExtensionController
             'records' => $records,
         ];
 
+        if (isset($config['taxonomies']) && is_array($config['taxonomies']))
+        {
+            $taxonomyRecords = [];
+
+            /** @var TaxonomyRepository $taxonomyRepository */
+            $taxonomyRepository = $this->getDoctrine()->getRepository(Taxonomy::class);
+
+            /** @var string $taxonomy */
+            foreach ($config['taxonomies'] as $taxonomy)
+            {
+                $taxonomyRecords = array_merge($taxonomyRecords, $taxonomyRepository->findBy(['type' => $taxonomy]));
+            }
+
+            $context['taxonomies'] = $taxonomyRecords;
+        }
+
         $headerContentType = 'text/xml;charset=UTF-8';
 
-        $response = $this->render('@sitemap/sitemap.xml.twig', $context);
+        $view = isset($config['xml_view'])
+            ? $config['xml_view']
+            : '@sitemap/sitemap.xml.twig';
+
+        $response = $this->render($view, $context);
         $response->headers->set('Content-Type', $headerContentType);
 
         return $response;
@@ -39,7 +61,12 @@ class Controller extends ExtensionController
     {
         $headerContentType = 'text/xml;charset=UTF-8';
 
-        $response = $this->render('@sitemap/sitemap.xsl');
+        $config = $this->getConfig();
+        $view = isset($config['xsl_view'])
+            ? $config['xsl_view']
+            : '@sitemap/sitemap.xsl';
+
+        $response = $this->render($view);
         $response->headers->set('Content-Type', $headerContentType);
 
         return $response;
