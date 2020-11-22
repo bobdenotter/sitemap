@@ -47,8 +47,8 @@ class Controller extends ExtensionController
 
         $headerContentType = 'text/xml;charset=UTF-8';
 
-        $view = isset($config['xml_view'])
-            ? $config['xml_view']
+        $view = isset($config['templates']['xml'])
+            ? $config['templates']['xml']
             : '@sitemap/sitemap.xml.twig';
 
         $response = $this->render($view, $context);
@@ -62,8 +62,8 @@ class Controller extends ExtensionController
         $headerContentType = 'text/xml;charset=UTF-8';
 
         $config = $this->getConfig();
-        $view = isset($config['xsl_view'])
-            ? $config['xsl_view']
+        $view = isset($config['templates']['xsl'])
+            ? $config['templates']['xsl']
             : '@sitemap/sitemap.xsl';
 
         $response = $this->render($view);
