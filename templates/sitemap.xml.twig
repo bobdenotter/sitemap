@@ -12,27 +12,32 @@
             {%- set contentType = record.definition -%}
             {%- if lastContentTypeSlug != contentType.slug and not contentType.viewless_listing -%}
                 {%- set lastContentTypeSlug = contentType.slug -%}
-
-                {{- _self.urlMacro(path('listing', { contentTypeSlug: contentType.slug }), 0.8) -}}
+                {%- set url = path('listing', { contentTypeSlug: contentType.slug }) -%}
+                {%- set priority = 0.8 -%}
+                {{ block('urlBlock') }}
             {%- endif -%}
         {%- endif -%}
         {%- if record|link is not empty -%}
-            {{- _self.urlMacro(record|link, 0.8, record) -}}
+            {%- set url = record|link -%}
+            {%- set priority = 0.8 -%}
+            {{ block('urlBlock') }}
         {%- endif -%}
     {%- endfor -%}
 
     {%- if taxonomies is defined -%}
         {%- for taxonomy in taxonomies -%}
             {%- if taxonomy|link is not empty -%}
-                {{- _self.urlMacro(taxonomy|link, 0.7, taxonomy) -}}
+                {%- set url = taxonomy|link -%}
+                {%- set priority = 0.7 -%}
+                {{ block('urlBlock') }}
             {%- endif -%}
         {%- endfor -%}
     {%- endif -%}
 </urlset>
 
-{%- macro urlMacro(url, priority, record) %}
-    <url>
-    {% if url is defined -%}
+{%- block urlBlock %}
+    {%- if url is defined -%}
+        <url>
         {%- block loc -%}
             <loc>{{ absolute_url(url) }}</loc>
         {% endblock loc -%}
@@ -49,6 +54,6 @@
                 {% endif -%}
             </image:image>
         {% endif -%}
-    {%- endif -%}
-    </url>
-{% endmacro -%}
+        </url>
+    {% endif -%}
+{% endblock urlBlock -%}
