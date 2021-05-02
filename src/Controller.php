@@ -20,13 +20,14 @@ class Controller extends ExtensionController
     public function sitemap(Query $query): Response
     {
         $config = $this->getConfig();
+        $showListings = $config->get('show_listings');
         $contentTypes = $this->boltConfig->get('contenttypes')->where('viewless', false)->keys()->implode(',');
-
         $records = $this->createPager($query, $contentTypes, $config['limit']);
 
         $context = [
             'title' => 'Sitemap',
             'records' => $records,
+            'showListings' => $showListings,
         ];
 
         if (isset($config['taxonomies']) && is_array($config['taxonomies']))

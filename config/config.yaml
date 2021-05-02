@@ -1,5 +1,6 @@
 # Configuration file for the Sitemap extension.
 
+show_listings: false
 limit: 10000
 templates:
   xml: "@sitemap/sitemap.xml.twig"
