@@ -12,14 +12,14 @@
             {%- set contentType = record.definition -%}
             {%- if lastContentTypeSlug != contentType.slug and not contentType.viewless_listing -%}
 
-				{%- if (contentType.hide_listing_from_xml_sitemap is not defined) or (not contentType.hide_listing_from_xml_sitemap) -%}
+                {%- if (contentType.hide_listing_from_xml_sitemap is not defined) or (not contentType.hide_listing_from_xml_sitemap) -%}
 
-	                {%- set lastContentTypeSlug = contentType.slug -%}
-	                {%- set url = path('listing', { contentTypeSlug: contentType.slug }) -%}
-	                {%- set priority = 0.8 -%}
-	                {{ block('urlBlock') }}
+                    {%- set lastContentTypeSlug = contentType.slug -%}
+                    {%- set url = path('listing', { contentTypeSlug: contentType.slug }) -%}
+                    {%- set priority = 0.8 -%}
+                    {{ block('urlBlock') }}
 
-            	{%- endif -%}
+                {%- endif -%}
 
             {%- endif -%}
         {%- endif -%}
