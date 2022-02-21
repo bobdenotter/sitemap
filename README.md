@@ -13,6 +13,8 @@ composer require bobdenotter/sitemap
 .. and, you're good to go! Visit `/sitemap.xml` on your site, and you should 
 see the result!
 
+**Warning:** to generate the correct new links to contenttypes using overrides in routes.yaml, update your ContentType definition by setting e.g. `record_route: pagebinding`. Otherwise, the sitemap will still show Bolt's default routes.
+
 
 -------
 
