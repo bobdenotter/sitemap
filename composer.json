@@ -1,6 +1,6 @@
 {
     "name": "bobdenotter/sitemap",
-    "description": "Provide a sitemap (.xml) for your Bolt 4 site",
+    "description": "Provide a sitemap (.xml) for your Bolt 5 site",
     "type": "bolt-extension",
     "license": "MIT",
     "authors": [
@@ -14,7 +14,7 @@
     },
     "require-dev": {
         "bolt/core": "^4.0.0",
-        "symplify/easy-coding-standard": "^7.0"
+        "symplify/easy-coding-standard": "^10.2"
     },
     "autoload": {
         "psr-4": {
