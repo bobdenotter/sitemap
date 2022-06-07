@@ -30,16 +30,14 @@ class Controller extends ExtensionController
             'showListings' => $showListings,
         ];
 
-        if (isset($config['taxonomies']) && is_array($config['taxonomies']))
-        {
+        if (isset($config['taxonomies']) && is_array($config['taxonomies'])) {
             $taxonomyRecords = [];
 
             /** @var TaxonomyRepository $taxonomyRepository */
             $taxonomyRepository = $this->getDoctrine()->getRepository(Taxonomy::class);
 
             /** @var string $taxonomy */
-            foreach ($config['taxonomies'] as $taxonomy)
-            {
+            foreach ($config['taxonomies'] as $taxonomy) {
                 $taxonomyRecords = array_merge($taxonomyRecords, $taxonomyRepository->findBy(['type' => $taxonomy]));
             }
 
