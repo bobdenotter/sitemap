@@ -10,10 +10,9 @@
     {%- set lastContentTypeSlug = null -%}
     {%- for record in records -%}
         {%- set isListing = false -%}
+        {%- set contentType = record.definition -%}
         {% if showListings %}
-            {%- set contentType = record.definition -%}
-            {%- if lastContentTypeSlug != contentType.slug and not contentType.viewless_listing -%}
-
+            {%- if lastContentTypeSlug != contentType.slug and not contentType.viewless_listing and contentType.slug not in excludeListings -%}
                 {%- if (contentType.hide_listing_from_xml_sitemap is not defined) or (not contentType.hide_listing_from_xml_sitemap) -%}
 
                     {%- set lastContentTypeSlug = contentType.slug -%}
@@ -24,10 +23,9 @@
                     {%- set isListing = false -%}
 
                 {%- endif -%}
-
             {%- endif -%}
         {%- endif -%}
-        {%- if if not isListing and record|link is not empty -%}
+        {%- if not isListing and record|link is not empty and contentType.slug not in excludeContentTypes -%}
             {%- set url = record|link -%}
             {%- set priority = 0.8 -%}
             {{ block('urlBlock') }}

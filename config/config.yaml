@@ -6,3 +6,5 @@ templates:
   xml: "@sitemap/sitemap.xml.twig"
   xsl: "@sitemap/sitemap.xsl"
 #taxonomies: ["categories", "tags"]
+#exclude_contenttypes: ["pages"]
+#exclude_listings: ["pages"]
