@@ -9,6 +9,7 @@
 >
     {%- set lastContentTypeSlug = null -%}
     {%- for record in records -%}
+        {%- set isListing = false -%}
         {% if showListings %}
             {%- set contentType = record.definition -%}
             {%- if lastContentTypeSlug != contentType.slug and not contentType.viewless_listing -%}
@@ -18,13 +19,15 @@
                     {%- set lastContentTypeSlug = contentType.slug -%}
                     {%- set url = path('listing', { contentTypeSlug: contentType.slug }) -%}
                     {%- set priority = 0.8 -%}
+                    {%- set isListing = true -%}
                     {{ block('urlBlock') }}
+                    {%- set isListing = false -%}
 
                 {%- endif -%}
 
             {%- endif -%}
         {%- endif -%}
-        {%- if record|link is not empty -%}
+        {%- if if not isListing and record|link is not empty -%}
             {%- set url = record|link -%}
             {%- set priority = 0.8 -%}
             {{ block('urlBlock') }}
