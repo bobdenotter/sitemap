@@ -25,7 +25,7 @@
                 {%- endif -%}
             {%- endif -%}
         {%- endif -%}
-        {%- if not isListing and record|link is not empty and contentType.slug not in excludeContentTypes -%}
+        {%- if record|link is not empty and contentType.slug not in excludeContentTypes -%}
             {%- set url = record|link -%}
             {%- set priority = 0.8 -%}
             {{ block('urlBlock') }}
@@ -59,7 +59,7 @@
                 <xhtml:link rel="alternate" hreflang="{{ locale }}" href="{{ record|link(true, locale) }}" />
             {% endfor %}
         {% endif %}
-        {% if record is defined and record|image is not empty -%}
+        {% if record is defined and record|image is not empty and not isListing -%}
             <image:image>
                 <image:loc>{{ absolute_url(record|image) }}</image:loc>
                 {% if record.image.alt|default() -%}
