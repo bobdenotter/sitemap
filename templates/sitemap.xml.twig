@@ -10,10 +10,9 @@
     {%- set lastContentTypeSlug = null -%}
     {%- for record in records -%}
         {%- set isListing = false -%}
+        {%- set contentType = record.definition -%}
         {% if showListings %}
-            {%- set contentType = record.definition -%}
-            {%- if lastContentTypeSlug != contentType.slug and not contentType.viewless_listing -%}
-
+            {%- if lastContentTypeSlug != contentType.slug and not contentType.viewless_listing and contentType.slug not in excludeListings -%}
                 {%- if (contentType.hide_listing_from_xml_sitemap is not defined) or (not contentType.hide_listing_from_xml_sitemap) -%}
 
                     {%- set lastContentTypeSlug = contentType.slug -%}
@@ -24,10 +23,9 @@
                     {%- set isListing = false -%}
 
                 {%- endif -%}
-
             {%- endif -%}
         {%- endif -%}
-        {%- if if not isListing and record|link is not empty -%}
+        {%- if record|link is not empty and contentType.slug not in excludeContentTypes -%}
             {%- set url = record|link -%}
             {%- set priority = 0.8 -%}
             {{ block('urlBlock') }}
@@ -56,12 +54,12 @@
         {% block priority -%}
             <priority>{{ url == '/' ? 1 : priority }}</priority>
         {% endblock priority -%}
-        {% if record.definition.locales.all|length > 1 %}
+        {% if record is defined and record.definition.locales.all|length > 1 %}
             {% for locale in record.definition.locales %}
                 <xhtml:link rel="alternate" hreflang="{{ locale }}" href="{{ record|link(true, locale) }}" />
             {% endfor %}
         {% endif %}
-        {% if record|image is not empty -%}
+        {% if record is defined and record|image is not empty and not isListing -%}
             <image:image>
                 <image:loc>{{ absolute_url(record|image) }}</image:loc>
                 {% if record.image.alt|default() -%}

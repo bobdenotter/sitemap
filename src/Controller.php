@@ -21,6 +21,8 @@ class Controller extends ExtensionController
     {
         $config = $this->getConfig();
         $showListings = $config->get('show_listings');
+        $excludeContentTypes = $config->get('exclude_contenttypes', []);
+        $excludeListings =  $config->get('exclude_listings', []);
         $contentTypes = $this->boltConfig->get('contenttypes')->where('viewless', false)->keys()->implode(',');
         $records = $this->createPager($query, $contentTypes, $config['limit']);
 
@@ -28,18 +30,18 @@ class Controller extends ExtensionController
             'title' => 'Sitemap',
             'records' => $records,
             'showListings' => $showListings,
+            'excludeContentTypes' => $excludeContentTypes,
+            'excludeListings' => $excludeListings,
         ];
 
-        if (isset($config['taxonomies']) && is_array($config['taxonomies']))
-        {
+        if (isset($config['taxonomies']) && is_array($config['taxonomies'])) {
             $taxonomyRecords = [];
 
             /** @var TaxonomyRepository $taxonomyRepository */
             $taxonomyRepository = $this->getDoctrine()->getRepository(Taxonomy::class);
 
             /** @var string $taxonomy */
-            foreach ($config['taxonomies'] as $taxonomy)
-            {
+            foreach ($config['taxonomies'] as $taxonomy) {
                 $taxonomyRecords = array_merge($taxonomyRecords, $taxonomyRepository->findBy(['type' => $taxonomy]));
             }
 
